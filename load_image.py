@@ -14,17 +14,17 @@ im.show()
 #im.save("3.bmp")
 
 l = list(im.getdata())
-print(l[:10])
+print(l)
 
 
-box = (0,0,5,5)
-region = im.crop(box)
-region.show()
+#box = (0,0,5,5)
+#region = im.crop(box)
+#region.show()
 
-region = region.transpose(Image.ROTATE_180)
-im.paste(region, box)
-im.show()
+#region = region.transpose(Image.ROTATE_180)
+#im.paste(region, box)
+#im.show()
 
-new = Image.new('RGB', (160,160), (255, 255, 255))
+#new = Image.new('RGB', (160,160), (255, 255, 255))
 
-new = Image.new('1', (160,160), (255))
+#new = Image.new('1', (160,160), (255))

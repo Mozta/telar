@@ -1,0 +1,28 @@
+import numpy as np
+
+n = 5
+t1 = np.zeros((n,n), dtype=int)
+patrones = []
+
+m = 0
+for j in range(n-1):
+    for i in range(n):
+        t1[m][i] = 255
+        m+=2
+        if m == n:
+            m=0
+        if m > n:
+            m=1
+    t = np.fliplr(t1)
+    print(t)
+    print("\n")
+    patrones.append(t)
+    m+=1
+#print(t1)
+#print(np.fliplr(t1))
+
+
+#for i in range(n-1, -1, -1):
+#    t1[i][m] = 255
+#    m+=2
+#    if m >= n:
