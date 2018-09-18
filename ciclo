@@ -2,6 +2,7 @@ import numpy as np
 
 n = 5
 t1 = np.zeros((n,n), dtype=int)
+t1 = t1.tolist()
 patrones = []
 
 m = 0
@@ -14,10 +15,15 @@ for j in range(n-1):
         if m > n:
             m=1
     t = np.fliplr(t1)
-    print(t)
-    print("\n")
     patrones.append(t)
+    t="NaN"
+    print(patrones[j])
+    print("\n")
     m+=1
+
+for i in range(n-1):
+    print(patrones[i])
+    print("\n")
 #print(t1)
 #print(np.fliplr(t1))
 
