@@ -1,6 +1,6 @@
 import numpy as np
 
-n = 8
+n = 6
 t1 = np.zeros((n,n), dtype=int)
 #t1 = t1.tolist()
 patrones = []
