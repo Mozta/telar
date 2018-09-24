@@ -3,7 +3,7 @@ import numpy as np
 
 def patrones():
     n = z = 5
-    t1 = np.zeros((n,n), dtype=int)
+    t1 = np.zeros((n,n), dtype=np.uint8)
     t1 = t1.tolist()
     patrones = []
     patrones1 = []
@@ -27,7 +27,7 @@ def patrones():
     return patrones1
 
 def asignaciones(patrones, promedios):
-    result = np.arange(100).reshape(10, 10)
+    result = np.arange(100, dtype=np.uint8).reshape(10, 10)
     n = 5
     for i in range(n-1):
         print(promedios[i])
@@ -37,25 +37,67 @@ def asignaciones(patrones, promedios):
     for i in range(n-1):
         if promedios[i] < t:
             print("Matriz "+ str(i) + " pertenece a patron: " +str(0)+" - "+ str(t))
-            for j in range(0,n):
-                for i in range(0,n):
-                    result[j][i] = patrones[0][j][i]
+            if i == 0:
+                for i in range(n):
+                    result[i][0:n] = patrones[0][i]
+            elif i == 1:
+                for i in range(n):
+                    result[i][n:n*2] = patrones[0][i]
+            elif i == 2:
+                for i in range(n):
+                    result[i+n][0:n] = patrones[0][i]
+            elif i == 3:
+                for i in range(n):
+                    result[i+n][n:n*2] = patrones[0][i]
         elif promedios[i] < t*2:
             print("Matriz "+ str(i) + " pertenece a patron: "+str(1)+" - " + str(t*2))
-            for j in range(n,n*2):
-                for i in range(0,n):
-                    result[j][i] = patrones[1][j-n][i-n]
+            if i == 0:
+                for i in range(n):
+                    result[i][0:n] = patrones[1][i]
+            elif i == 1:
+                for i in range(n):
+                    result[i][n:n*2] = patrones[1][i]
+            elif i == 2:
+                for i in range(n):
+                    result[i+n][0:n] = patrones[1][i]
+            elif i == 3:
+                for i in range(n):
+                    result[i+n][n:n*2] = patrones[1][i]
         elif promedios[i] < t*3:
             print("Matriz "+ str(i) + " pertenece a patron: "+str(2)+" - " + str(t*3))
-            for j in range(n*2,n*3):
-                for i in range(0,n):
-                    result[j][i] = patrones[2][j-n*2][i-n*2]
+            if i == 0:
+                for i in range(n):
+                    result[i][0:n] = patrones[2][i]
+            elif i == 1:
+                for i in range(n):
+                    result[i][n:n*2] = patrones[2][i]
+            elif i == 2:
+                for i in range(n):
+                    result[i+n][0:n] = patrones[2][i]
+            elif i == 3:
+                for i in range(n):
+                    result[i+n][n:n*2] = patrones[2][i]
         elif promedios[i] < t*4:
             print("Matriz "+ str(i) + " pertenece a patron: "+str(3)+" - " + str(t*4))
-            for j in range(n*3,n*4):
-                for i in range(0,n):
-                    result[j][i] = patrones[3][j-n*3][i-n*3]
+            if i == 0:
+                for i in range(n):
+                    result[i][0:n] = patrones[3][i]
+            elif i == 1:
+                for i in range(n):
+                    result[i][n:n*2] = patrones[3][i]
+            elif i == 2:
+                for i in range(n):
+                    result[i+n][0:n] = patrones[3][i]
+            elif i == 3:
+                for i in range(n):
+                    result[i+n][n:n*2] = patrones[3][i]
     print(result)
+    img = Image.fromarray(result)
+    t = list(img.getdata())
+
+    for i in range(10):
+        print(t[i*10:(i+1)*10])
+    img.show()
 
 
 n = 10
