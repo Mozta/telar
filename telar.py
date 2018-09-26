@@ -49,22 +49,57 @@ def patrones(n):
 
 def promedios(n,data):
     promedios = []
+    img_array = []
+
     data_format = np.array(data).reshape(160,160)
     p = r = 0
 
-    for k in range(int(160/n)):
-        b = []
-        for j in range(0,n):
-            for i in range(p,p+n):
-                b.append(data_format[j][i])
-        c = np.array(b).reshape(n,n)
-        promedios.append(c.mean())
-        print(c)
-        print(c.mean())
-        p+=n
-    print("Soy p: "+str(p))
-    #print(len(promedios))
-    return promedios
+    for q in range(int(160/n)):
+        for k in range(int(160/n)):
+            b = []
+            for j in range(r,r+n):
+                for i in range(p,p+n):
+                    b.append(data_format[j][i])
+            c = np.array(b).reshape(n,n)
+            promedios.append(c.mean())
+            img_array.append(c)
+            print(c)
+            print(c.mean())
+            p += n
+        r += n
+        p = 0
+    return promedios, img_array
+
+def satin(n, patrones, promedios, img_array):
+    result = np.zeros((160,160), dtype=np.uint8)
+    t = 255/(n-1)
+    print("Tramo: " + str(t))
+
+    pi = 0
+    #Indice horizontal
+    z = 0
+    #contador de indice total
+    cit = 0
+
+    for i in range(len(promedios)):
+        for ti in range(n-1):
+                if promedios[i] < (t*(ti+1)):
+                    print("Matriz "+ str(i) + " pertenece a patron: " +str(ti)+" - "+ str(t*(ti+1)))
+                    img_array[i] = patrones[ti-1]
+                    break
+
+    img_vector = []
+    for i in range (1024):
+        img_vector = img_vector + list(img_array[i][0])
+    #data_format = np.array(img_vector, dtype=np.uint8).reshape(160,160)
+
+    #np.savetxt("salida2", data_format, fmt="%d")
+
+    print(result)
+    #img = Image.fromarray(data_format)
+    #t = list(img.getdata())
+    #img.show()
+    print(img_vector)
 
 
 #Cargar imagen
@@ -72,6 +107,10 @@ img = load_image("lenna.png")
 #Pasarla a BN
 img_ = convert_image(img)
 #Genrarar patrones
-patrones(5)
+patrones = patrones(5)
 #Calcular promedios
-print(promedios(5,list(img_.getdata())))
+#print(promedios(5,list(img_.getdata())))
+promedios, img_array = promedios(5,list(img_.getdata()))
+#Aplicar regla satin
+print(img_array)
+satin(5, patrones, promedios, img_array)
