@@ -89,28 +89,40 @@ def satin(n, patrones, promedios, img_array):
                     break
 
     img_vector = []
-    for i in range (1024):
-        img_vector = img_vector + list(img_array[i][0])
-    #data_format = np.array(img_vector, dtype=np.uint8).reshape(160,160)
+    p0 = 0
+    p1 = int(160/n)
+    #Recorre los siguientes tramos
+    for k in range((int(160/n))):
+        #Recorre la matriz hacia abajo
+        for j in range (n):
+            #Recorre la matriz hacia los lados
+            for i in range (p0,p1):
+                img_vector = img_vector + list(img_array[i][j])
+        p0 = p1
+        p1 = p1 + int(160/n)
 
-    #np.savetxt("salida2", data_format, fmt="%d")
+    data_format = np.array(img_vector, dtype=np.uint8).reshape(160,160)
+
+    np.savetxt("salida2", data_format, fmt="%d")
 
     print(result)
-    #img = Image.fromarray(data_format)
+    img = Image.fromarray(data_format)
     #t = list(img.getdata())
-    #img.show()
+    img.save('mario2.jpg')
+    img.show()
     print(img_vector)
 
 
 #Cargar imagen
-img = load_image("lenna.png")
+img = load_image("mario.jpg")
+#Definir tamano de satin
+n = 8
 #Pasarla a BN
 img_ = convert_image(img)
 #Genrarar patrones
-patrones = patrones(5)
+patrones = patrones(n)
 #Calcular promedios
 #print(promedios(5,list(img_.getdata())))
-promedios, img_array = promedios(5,list(img_.getdata()))
+promedios, img_array = promedios(n,list(img_.getdata()))
 #Aplicar regla satin
-print(img_array)
-satin(5, patrones, promedios, img_array)
+satin(n, patrones, promedios, img_array)
